@@ -1,6 +1,3 @@
-Here's the complete Markdown code that you can copy and paste directly into your `README.md` file:
-
-```markdown
 # Memory Mechanics: Caches, Allocations & The "Speed Gap"
 
 **A practical exploration of CPU memory hierarchy, cache locality, and allocation strategies.**
@@ -124,6 +121,5 @@ When running the **Allocation Test**:
 ```text
 2. ARENA ALLOCATION
    Allocation Time: 0.001 seconds <-- ~1000x faster than standard malloc loop
-```
 ```
 
