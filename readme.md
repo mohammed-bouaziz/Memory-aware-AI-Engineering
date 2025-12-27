@@ -4,12 +4,12 @@
 
 This repository contains C implementations designed to demonstrate the physical realities of computer memory. It highlights why theoretical "Big-O" notation often fails to account for real-world hardware constraints like cache lines, memory latency, and `malloc` overhead.
 
-These experiments are part of a broader study path (outlined below) analyzing why high-level structures (like Python Dictionaries) differ in performance compared to low-level contiguous memory (like NumPy Arrays or C-Structs).
+These experiments are part of a broader study path analyzing why high-level structures (like Python Dictionaries) differ in performance compared to low-level contiguous memory (like NumPy Arrays or C-Structs).
 
 ## 📂 The Experiments
 
 ### 1. Cache Latency & Effective Access Time
-**File:** `hello.c` (Referred to as the Cache Test)
+**File:** `demistifying-cache.c` (Referred to as the Cache Test)
 
 This program demonstrates the **Memory Hierarchy** by measuring the time it takes to access data at different storage intervals. It calculates the **Effective Access Time (EAT)** to visualize the cost of a "Cache Miss."
 
@@ -19,7 +19,7 @@ This program demonstrates the **Memory Hierarchy** by measuring the time it take
 * **Key Insight:** You will observe that as soon as the array size exceeds the L3 cache size (usually ~8MB), performance drops drastically (often by 10x or more).
 
 ### 2. Allocation Strategies: Scattered vs. Arena
-**File:** `something.c` (Referred to as the Allocation Test)
+**File:** `dynamic-allocation.c` (Referred to as the Allocation Test)
 
 This program compares two ways of building a standard Linked List of 10 million nodes to demonstrate **Memory Locality** and **Allocation Overhead**.
 
@@ -35,74 +35,24 @@ This program compares two ways of building a standard Linked List of 10 million 
 ### Prerequisites
 You need a C compiler (GCC or Clang).
 
-### 1. Run the Cache Latency Test (`hello.c`)
+### 1. Run the Cache Latency Test (`demistifying-cache.c`)
 ```bash
 # Compile (using -O2 to optimize, but code prevents over-optimization)
-gcc -O2 hello.c -o cache_test
+gcc -O2 demistifying-cache.c -o cache_test
 
 # Run
 ./cache_test
 ```
 
-### 2. Run the Allocation Strategy Test (`something.c`)
+### 2. Run the Allocation Strategy Test (`dynamic-allocation.c`)
 
 ```bash
 # Compile
-gcc -O2 something.c -o arena_test
+gcc -O2 dynamic-allocation.c -o arena_test
 
 # Run
 ./arena_test
 ```
-
----
-
-## 📚 Study Roadmap: From Hardware to Python
-
-This code is part of a larger curriculum to understand high-performance computing and data structures.
-
-### Phase 1: The Hardware Reality
-
-* [ ] **STEP 1: Watch "The Raw Truth: How Hash Tables Actually Work"**
-* *Focus:* Hash functions, collision resolution, memory addresses, and pointer arithmetic.
-
-* [ ] **STEP 2: Watch "CPU Caches and Memory Hierarchy"**
-* *Focus:* Cache lines, prefetching, and the speed gap (cycles/nanoseconds).
-
-* [x] **STEP 3: Hands-on exercise with cache effects (This Repo - `hello.c`)**
-* *Action:* Run the random vs sequential access code.
-
-* [ ] **STEP 4: Watch "Memory Allocation in C"**
-* *Focus:* `malloc` overhead, fragmentation, and memory pools.
-
-### Phase 2: Python Internals
-
-* [ ] **STEP 5: Study "Python Objects and PyObject Structure"**
-* *Focus:* Why a Python integer takes 28 bytes (PyObject header, ref counting).
-
-* [ ] **STEP 6: Watch "Python Dictionary Implementation Evolution"**
-* *Focus:* Sparse arrays vs. compact representation (post-Python 3.6).
-
-* [ ] **STEP 7: Study "Python's Garbage Collection"**
-* *Focus:* Reference counting vs. generational GC and GC pauses.
-
-### Phase 3: High-Performance Data
-
-* [ ] **STEP 8: Watch "NumPy Arrays and Memory Layout"**
-* *Focus:* Contiguous memory, strides, and why vectorized operations are fast.
-
-* [x] **STEP 9: Implement a minimal allocator/list in C (This Repo - `something.c`)**
-* *Action:* Compare scattered `malloc` loops vs. Arena allocation.
-
-* [ ] **STEP 10: Profile a real Python dictionary vs NumPy comparison**
-* *Action:* Create dictionaries and arrays storing AI embeddings; measure memory usage.
-
-* [ ] **STEP 11: Read about "Vector Databases and Specialized Storage"**
-* *Focus:* FAISS, Pinecone, and memory-mapped files.
-
-### Phase 4: Synthesis
-
-* [ ] **STEP 12: Final Synthesis**
-* *Goal:* Document the memory overhead of 1 million embeddings in a Python dict vs C/NumPy and create a decision chart for data structures.
 
 ---
 
@@ -122,4 +72,3 @@ When running the **Allocation Test**:
 2. ARENA ALLOCATION
    Allocation Time: 0.001 seconds <-- ~1000x faster than standard malloc loop
 ```
-
